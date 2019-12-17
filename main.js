@@ -74,9 +74,9 @@ window.addEventListener('load',async () =>{
 
     for (let i = 1; i <= partTotal; i++) {
        const part = await callStatic('getPart',[i]);
-       
+
         partArray.push({
-            creatorAddress  : part.creatorAddress,
+            owner           : part.creatorAddress,
             name            : part.partName,
             asset           : part.assetName
         })
