@@ -72,7 +72,7 @@ window.addEventListener('load',async () =>{
 
     partTotal = await callStatic('getTotalPart', []);
 
-    for (let i = 0; i < partTotal; i++) {
+    for (let i = 1; i <= partTotal; i++) {
         part = callStatic('getPart',[i]);
         partArray.push({
             creatorAddress  : part.creatorAddress,
