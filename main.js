@@ -43,7 +43,7 @@ contract DemocraticPartAsset=
 `;
 var contractAddress= "ct_KcvgWcMfaMwNvg6ywqMpKAgVVArmjTxzf2KCW7gvCXGz392LB";
 
-var client1 =null;
+var client =null;
 
 var partArray = [];
 var partTotal =0;
@@ -55,16 +55,33 @@ function renderPart() {
     $('#part-list').html(render)
 }
 
+async function callStatic(func,args){
+    const contract = await client.getContractInstance(contractSource, {contractAddress});
+   
+    const calledGet =await contract.call(func,args,{callStatic : true}).catch(e =>console.error(e))
+    //console.log('calledGet',calledGet);
+
+    const decodedGet = await calledGet.decode().catch(e =>console.error(e));
+    //console.log(decodedGet)
+    return decodedGet;
+}
+
 window.addEventListener('load',async () =>{
     $('#loader').show();
-    client1 = await Ae.Aepp();
-    const contract = await client1.getContractInstance(contractSource, {contractAddress});
-   
-    const calledGet =await contract.call('getPart',[1],{callStatic : true}).catch(e =>console.error(e))
-   console.log('calledGet',calledGet);
+    client = await Ae.Aepp();
 
-   const decodedGet = await calledGet.decode().catch(e =>console.error(e));
-   console.log(decodedGet)
+    partTotal = await callStatic('getTotalPart', []);
+
+    for (let i = 0; i < partTotal; i++) {
+        part = callStatic('getPart',[i]);
+        partArray.push({
+            creatorAddress  : part.creatorAddress,
+            name            : part.partName,
+            asset           : part.assetName
+        })
+        
+    }
+
 
 
     renderPart();
