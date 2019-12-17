@@ -114,6 +114,7 @@ $(document).on('click','#saveBtn', async function(){
     // })
 
 await contractCall('registerPart',[name, asset], 0);
+  renderPart();
 
 $('#loader').hide();
 });
