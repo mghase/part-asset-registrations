@@ -66,6 +66,16 @@ async function callStatic(func,args){
     return decodedGet;
 }
 
+async function contractCall(func, args,value) {
+    const contract = await client.getContractInstance(contractSource, {contractAddress});
+   
+    const calledGet =await contract.call(func,args,{amount : value}).catch(e =>console.error(e))
+
+    return calledGet;
+  }
+
+
+
 window.addEventListener('load',async () =>{
     $('#loader').show();
     client = await Ae.Aepp();
@@ -90,3 +100,21 @@ console.log(partArray);
 
 $('#loader').hide();
 });
+
+
+
+$(document).on('click','#saveBtn', async function(){
+    $('#loader').show();
+    const name = $('#name').val();
+    const asset = $('#asset').val();
+
+    // partArray.push({
+    //     partName  : name,
+    //     assetName : asset
+    // })
+
+await contractCall('registerPart',[name, asset], 0);
+
+$('#loader').hide();
+});
+
