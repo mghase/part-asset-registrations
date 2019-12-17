@@ -65,5 +65,9 @@ window.addEventListener('load',async () =>{
 
    const decodedGet = await calledGet.decode().catch(e =>console.error(e));
    console.log(decodedGet)
+
+
     renderPart();
+
+$('#loader').hide();
 });
