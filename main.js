@@ -52,7 +52,8 @@ function renderPart() {
     var template=$('#template').html();
     Mustache.parse(template);
     var render = Mustache.render(template, {partArray});
-    $('#part-list').html(render)
+    $('#part-list').html(render);
+    $('#total').html(+""+partTotal);
 }
 
 async function callStatic(func,args){
