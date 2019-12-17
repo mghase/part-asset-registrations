@@ -79,10 +79,11 @@ window.addEventListener('load',async () =>{
             name            : part.partName,
             asset           : part.assetName
         })
+
         
     }
 
-
+console.log(partArray);
 
     renderPart();
 
