@@ -62,5 +62,8 @@ window.addEventListener('load',async () =>{
    
     const calledGet =await contract.call('getTotalPart',[],{callStatic : true}).catch(e =>console.error(e))
    console.log('calledGet',calledGet);
+
+   const decodedGet = await calledGet.decode().catch(e =>console.error(e));
+   console.log(decodedGet)
     renderPart();
 });
